@@ -17,12 +17,29 @@ func main() {
 	fmt.Printf("We have total of %v tickets with %v still available.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend")
 
-	var userName string
+	var firstName string
+	var lastName string
+	var email string
 	var userTickets int
 	// can be used later
 
-	userName = "Pujan"
-	userTickets = 2
-	fmt.Printf("User %v booked %v tickets.\n", userName, userTickets)
+	// getting user input and saving the input in the firstName
+	fmt.Println("Enter your first name: ")
+	fmt.Scan(&firstName)
+
+	fmt.Println("Enter your last name: ")
+	fmt.Scan(&lastName)
+
+	fmt.Println("Enter your email address: ")
+	fmt.Scan(&email)
+
+	fmt.Println("Enter the amount of tickets: ")
+	fmt.Scan(&userTickets)
+
+	// getting pointer reference
+	fmt.Println(remainingTickets)
+	fmt.Println(&remainingTickets)
+
+	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 
 }
