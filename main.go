@@ -20,7 +20,7 @@ func main() {
 	var firstName string
 	var lastName string
 	var email string
-	var userTickets int
+	var userTickets uint
 	// can be used later
 
 	// getting user input and saving the input in the firstName
@@ -36,10 +36,12 @@ func main() {
 	fmt.Println("Enter the amount of tickets: ")
 	fmt.Scan(&userTickets)
 
+	remainingTickets = remainingTickets - userTickets
+
 	// getting pointer reference
 	fmt.Println(remainingTickets)
 	fmt.Println(&remainingTickets)
 
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
-
+	fmt.Printf("%v tickets are remaining for %v\n", remainingTickets, conferenceName)
 }
