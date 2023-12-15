@@ -17,6 +17,10 @@ func main() {
 	fmt.Printf("We have total of %v tickets with %v still available.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend")
 
+	// add a list/array to store booked user
+	// array should be given a fixed size and type
+	var bookings [50]string
+
 	var firstName string
 	var lastName string
 	var email string
@@ -38,9 +42,13 @@ func main() {
 
 	remainingTickets = remainingTickets - userTickets
 
-	// getting pointer reference
-	fmt.Println(remainingTickets)
-	fmt.Println(&remainingTickets)
+	// check the array contents
+	bookings[0] = firstName + " " + lastName
+
+	fmt.Printf("First value of array: %v\n", bookings[0])
+	fmt.Printf("Total value of array: %v\n", bookings)
+	fmt.Printf("Array type: %T\n", bookings)
+	fmt.Printf("Array length: %v\n", len(bookings))
 
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("%v tickets are remaining for %v\n", remainingTickets, conferenceName)
