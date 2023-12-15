@@ -19,7 +19,10 @@ func main() {
 
 	// add a list/array to store booked user
 	// array should be given a fixed size and type
-	var bookings [50]string
+	var bookings []string
+	// alternative syntax
+	// var booking = []string{}
+	// booking := []string{}
 
 	var firstName string
 	var lastName string
@@ -42,14 +45,15 @@ func main() {
 
 	remainingTickets = remainingTickets - userTickets
 
-	// check the array contents
-	bookings[0] = firstName + " " + lastName
+	// check the slice contents
+	bookings = append(bookings, firstName+" "+lastName)
 
-	fmt.Printf("First value of array: %v\n", bookings[0])
-	fmt.Printf("Total value of array: %v\n", bookings)
-	fmt.Printf("Array type: %T\n", bookings)
-	fmt.Printf("Array length: %v\n", len(bookings))
+	// fmt.Printf("First value of Slice: %v\n", bookings[0])
+	// fmt.Printf("Total value of Slice: %v\n", bookings)
+	// fmt.Printf("Slice type: %T\n", bookings)
+	// fmt.Printf("Slice length: %v\n", len(bookings))
 
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("%v tickets are remaining for %v\n", remainingTickets, conferenceName)
+	fmt.Printf("These are all our bookings: %v\n", bookings)
 }
