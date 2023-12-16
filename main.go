@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Learning_go/helper"
 	"fmt"
 	"strings"
 )
@@ -8,6 +9,13 @@ import (
 // syntatic sugar with : create assigning variable easier
 const conferenceTickets uint = 50
 
+/*
+levels of scopes
+ 1. local: declaration within function, scope
+ 2. Package: can be used everywhere in the same package
+ 3. Global: Declaration outside all functions & uppercase first letter
+    can be used across all package
+*/
 var conferenceName string = "Go Conference"
 var remainingTickets uint = 50
 var bookings = []string{}
@@ -28,7 +36,7 @@ func main() {
 
 	for {
 		firstName, lastName, email, userTickets := getUserInput()
-		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+		isValidName, isValidEmail, isValidTicketNumber := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 		if isValidName && isValidEmail && isValidTicketNumber {
 			bookTicket(remainingTickets, userTickets, email, firstName, lastName, conferenceName)
 
@@ -79,13 +87,6 @@ func getFirstNames() []string {
 	}
 	return firstNames
 
-}
-
-func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
-	isValidName := len(firstName) >= 2 && len(lastName) >= 2
-	isValidEmail := strings.Contains(email, "@")
-	isValidTicketNumber := userTickets > 0 && userTickets <= remainingTickets
-	return isValidName, isValidEmail, isValidTicketNumber
 }
 
 func getUserInput() (string, string, string, uint) {
