@@ -3,7 +3,7 @@ package main
 import (
 	"Learning_go/helper"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 // syntatic sugar with : create assigning variable easier
@@ -18,7 +18,10 @@ levels of scopes
 */
 var conferenceName string = "Go Conference"
 var remainingTickets uint = 50
-var bookings = []string{}
+
+// since we are using slice, it can be dynamic
+// hence, initialize with 0 initial size
+var bookings = make([]map[string]string, 0)
 
 // add a list/array to store booked user
 // array should be given a fixed size and type
@@ -81,9 +84,8 @@ func getFirstNames() []string {
 	for _, booking := range bookings {
 		// fields function splits the string with white separator and return slice
 		// fields comes from strings package
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
-		fmt.Println(names)
+		// var names = strings.Fields(booking)
+		firstNames = append(firstNames, booking["firstName"])
 	}
 	return firstNames
 
@@ -114,8 +116,21 @@ func getUserInput() (string, string, string, uint) {
 
 func bookTicket(remainingTickets uint, userTickets uint, email string, firstName string, lastName string, conferenceName string) {
 	remainingTickets = remainingTickets - userTickets
-	// check the slice contents
-	bookings = append(bookings, firstName+" "+lastName)
+
+	// create a map for user
+	// map uses key and value
+	// map[key]value = this is only a type but we need to initialize with an empty map
+	// make initalize value of given type
+	var userData = make(map[string]string)
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	// Since we cannot mix match datatypes in map
+	// we are converting the number into string
+	// using the strconv package, we are converting int64 to string of base10
+	bookings = append(bookings, userData)
+	fmt.Printf("List of booking is %v\n", bookings)
 
 	// fmt.Printf("First value of Slice: %v\n", bookings[0])
 	// fmt.Printf("Total value of Slice: %v\n", bookings)
