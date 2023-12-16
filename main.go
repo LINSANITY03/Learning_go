@@ -3,6 +3,7 @@ package main
 import (
 	"Learning_go/helper"
 	"fmt"
+	"time"
 )
 
 // syntatic sugar with : create assigning variable easier
@@ -47,8 +48,11 @@ func main() {
 	for {
 		firstName, lastName, email, userTickets := getUserInput()
 		isValidName, isValidEmail, isValidTicketNumber := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+
 		if isValidName && isValidEmail && isValidTicketNumber {
+
 			bookTicket(remainingTickets, userTickets, email, firstName, lastName, conferenceName)
+			sendTicket(userTickets, firstName, lastName, email)
 
 			firstNames := getFirstNames()
 			fmt.Printf("These first names of bookings are: %v\n", firstNames)
@@ -59,15 +63,19 @@ func main() {
 				break
 			}
 		} else {
+
 			if !isValidName {
 				fmt.Println("First name or last name you entered is too short")
 			}
+
 			if !isValidEmail {
 				fmt.Println("email address you entered doesn't contain @ sign")
 			}
+
 			if !isValidTicketNumber {
 				fmt.Println("Number of tickets you entered is invalid")
 			}
+
 			continue
 		}
 	}
@@ -149,4 +157,13 @@ func bookTicket(remainingTickets uint, userTickets uint, email string, firstName
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("%v tickets are remaining for %v\n", remainingTickets, conferenceName)
 
+}
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	fmt.Println("Preparing tickets to send")
+	time.Sleep(5 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+	fmt.Println("-----------------------------------------")
+	fmt.Printf("Sending ticket %v to email address %v\n", ticket, email)
+	fmt.Println("-----------------------------------------")
 }
