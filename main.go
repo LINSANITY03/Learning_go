@@ -49,28 +49,38 @@ func main() {
 		fmt.Println("Enter the amount of tickets: ")
 		fmt.Scan(&userTickets)
 
-		remainingTickets = remainingTickets - userTickets
+		if userTickets <= remainingTickets {
+			remainingTickets = remainingTickets - userTickets
+			// check the slice contents
+			bookings = append(bookings, firstName+" "+lastName)
 
-		// check the slice contents
-		bookings = append(bookings, firstName+" "+lastName)
+			// fmt.Printf("First value of Slice: %v\n", bookings[0])
+			// fmt.Printf("Total value of Slice: %v\n", bookings)
+			// fmt.Printf("Slice type: %T\n", bookings)
+			// fmt.Printf("Slice length: %v\n", len(bookings))
 
-		// fmt.Printf("First value of Slice: %v\n", bookings[0])
-		// fmt.Printf("Total value of Slice: %v\n", bookings)
-		// fmt.Printf("Slice type: %T\n", bookings)
-		// fmt.Printf("Slice length: %v\n", len(bookings))
+			fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
+			fmt.Printf("%v tickets are remaining for %v\n", remainingTickets, conferenceName)
 
-		fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
-		fmt.Printf("%v tickets are remaining for %v\n", remainingTickets, conferenceName)
+			firstNames := []string{}
+			// range can be used to iterate over different data structures
+			// for array and slices, it return index and value
+			for _, booking := range bookings {
+				// fields function splits the string with white separator and return slice
+				// fields comes from strings package
+				var names = strings.Fields(booking)
+				firstNames = append(firstNames, names[0])
+			}
+			fmt.Printf("These firstnames of bookings are: %v\n", firstNames)
+			if remainingTickets == 0 {
+				// end program
+				fmt.Println("Conference is booked out. Come back next year!.")
+				break
+			}
+		} else {
 
-		firstNames := []string{}
-		// range can be used to iterate over different data structures
-		// for array and slices, it return index and value
-		for _, booking := range bookings {
-			// fields function splits the string with white separator and return slice
-			// fields comes from strings package
-			var names = strings.Fields(booking)
-			firstNames = append(firstNames, names[0])
+			fmt.Printf("We only have %v tickets remaining, so you can't book %v tickers:\n", remainingTickets, userTickets)
+			continue
 		}
-		fmt.Printf("These firstnames of bookings are: %v\n", firstNames)
 	}
 }
