@@ -5,35 +5,34 @@ import (
 	"strings"
 )
 
+// syntatic sugar with : create assigning variable easier
+const conferenceTickets uint = 50
+
+var conferenceName string = "Go Conference"
+var remainingTickets uint = 50
+var bookings = []string{}
+
+// add a list/array to store booked user
+// array should be given a fixed size and type
+// var bookings []string
+// alternative syntax
+// var booking = []string{}
+// booking := []string{}
+
 func main() {
 	/*
 		func main is the entrypoint for our package.
 	*/
 
-	// syntatic sugar with : create assigning variable easier
-	conferenceName := "Go Conference"
-	const conferenceTickets uint = 50
-	var remainingTickets uint = 50
-	bookings := []string{}
-
 	greetUsers(conferenceName, conferenceTickets, remainingTickets)
-
-	// add a list/array to store booked user
-	// array should be given a fixed size and type
-	// var bookings []string
-	// alternative syntax
-	// var booking = []string{}
-	// booking := []string{}
-
-	// fmt.Printf("conferenceName is of type %T, conferenceTickrts is of type %T and remainingTickets of type %T\n", conferenceName, conferenceTickets, remainingTickets)
 
 	for {
 		firstName, lastName, email, userTickets := getUserInput()
 		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 		if isValidName && isValidEmail && isValidTicketNumber {
-			bookTicket(remainingTickets, userTickets, firstName, lastName, bookings, conferenceName)
+			bookTicket(remainingTickets, userTickets, email, firstName, lastName, conferenceName)
 
-			firstNames := getFirstNames(bookings)
+			firstNames := getFirstNames()
 			fmt.Printf("These first names of bookings are: %v\n", firstNames)
 
 			if remainingTickets == 0 {
@@ -61,9 +60,11 @@ func greetUsers(confName string, confTickets uint, remainingTickets uint) {
 	fmt.Printf("Welcome to %v booking application\n", confName)
 	fmt.Printf("We have total of %v tickets with %v still available.\n", confTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend")
+	// fmt.Printf("conferenceName is of type %T, conferenceTickrts is of type %T and remainingTickets of type %T\n", conferenceName, conferenceTickets, remainingTickets)
+
 }
 
-func getFirstNames(bookings []string) []string {
+func getFirstNames() []string {
 	// return first name of the entered user
 
 	firstNames := []string{}
@@ -74,6 +75,7 @@ func getFirstNames(bookings []string) []string {
 		// fields comes from strings package
 		var names = strings.Fields(booking)
 		firstNames = append(firstNames, names[0])
+		fmt.Println(names)
 	}
 	return firstNames
 
@@ -109,7 +111,7 @@ func getUserInput() (string, string, string, uint) {
 	return firstName, lastName, email, userTickets
 }
 
-func bookTicket(remainingTickets uint, userTickets uint, firstName string, lastName string, bookings []string, conferenceName string) {
+func bookTicket(remainingTickets uint, userTickets uint, email string, firstName string, lastName string, conferenceName string) {
 	remainingTickets = remainingTickets - userTickets
 	// check the slice contents
 	bookings = append(bookings, firstName+" "+lastName)
