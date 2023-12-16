@@ -3,7 +3,6 @@ package main
 import (
 	"Learning_go/helper"
 	"fmt"
-	"strconv"
 )
 
 // syntatic sugar with : create assigning variable easier
@@ -21,7 +20,7 @@ var remainingTickets uint = 50
 
 // since we are using slice, it can be dynamic
 // hence, initialize with 0 initial size
-var bookings = make([]map[string]string, 0)
+var bookings = make([]UserData, 0)
 
 // add a list/array to store booked user
 // array should be given a fixed size and type
@@ -29,6 +28,14 @@ var bookings = make([]map[string]string, 0)
 // alternative syntax
 // var booking = []string{}
 // booking := []string{}
+
+// create a custom type enabling mix data types
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 	/*
@@ -85,7 +92,7 @@ func getFirstNames() []string {
 		// fields function splits the string with white separator and return slice
 		// fields comes from strings package
 		// var names = strings.Fields(booking)
-		firstNames = append(firstNames, booking["firstName"])
+		firstNames = append(firstNames, booking.firstName)
 	}
 	return firstNames
 
@@ -121,11 +128,13 @@ func bookTicket(remainingTickets uint, userTickets uint, email string, firstName
 	// map uses key and value
 	// map[key]value = this is only a type but we need to initialize with an empty map
 	// make initalize value of given type
-	var userData = make(map[string]string)
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	// var userData = make(map[string]string)
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
 	// Since we cannot mix match datatypes in map
 	// we are converting the number into string
 	// using the strconv package, we are converting int64 to string of base10
