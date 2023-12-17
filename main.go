@@ -52,7 +52,8 @@ func main() {
 		if isValidName && isValidEmail && isValidTicketNumber {
 
 			bookTicket(remainingTickets, userTickets, email, firstName, lastName, conferenceName)
-			sendTicket(userTickets, firstName, lastName, email)
+			// go prefix create a new thread to execute the functions
+			go sendTicket(userTickets, firstName, lastName, email)
 
 			firstNames := getFirstNames()
 			fmt.Printf("These first names of bookings are: %v\n", firstNames)
@@ -160,7 +161,7 @@ func bookTicket(remainingTickets uint, userTickets uint, email string, firstName
 }
 
 func sendTicket(userTickets uint, firstName string, lastName string, email string) {
-	fmt.Println("Preparing tickets to send")
+	// this function simulate the tickets send to user's email
 	time.Sleep(5 * time.Second)
 	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
 	fmt.Println("-----------------------------------------")
